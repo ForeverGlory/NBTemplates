@@ -1,0 +1,3035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE codetemplates PUBLIC "-//NetBeans//DTD Editor Code Templates settings 1.0//EN" "http://www.netbeans.org/dtds/EditorCodeTemplates-1_0.dtd">
+<codetemplates>
+    <codetemplate abbreviation="d7_aggregator_fetch_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to expose the title and a short description of your
+ * fetcher.
+ *
+ * @return
+ *   An associative array defining a title and a description string.
+ */
+function ${mymodule}_aggregator_fetch_info() {
+  return array(
+    'title' => t('${title}'),
+    'description' => t('${description}'),
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * A user account was created.
+ *
+ * @param $edit
+ *   The array of form values submitted by the user.
+ * @param $account
+ *   The user object on which the operation is being performed.
+ * @param $category
+ *   The active category of user information being edited.
+ */
+function ${mymodule}_user_insert(&$edit, $account, $category) {
+  db_insert('${mytable}')
+    ->fields(array(
+      '${myfield}' => $edit['${myfield}'],
+      'uid' => $account->uid,
+    ))
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_theme_registry_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_theme_registry_alter().
+ *
+ * @param $theme_registry The entire cache of theme registry information, post-processing.
+ */
+function ${mymodule}_theme_registry_alter(&$theme_registry) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_help" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_help().
+ *
+ * @param $path A Drupal menu router path the help is being requested.
+ * @param $arg An array that corresponds to the return of the arg() function.
+ * @return A localized string containing the help text.
+ */
+function ${mymodule}_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#${mymodule}":
+      $output = '';
+      break;
+  }
+  return $output;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_ping" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_ping().
+ *
+ * @param $name The name of your Drupal site.
+ * @param $url The URL of your Drupal site.
+ */
+function ${mymodule}_ping($name = '', $url = '') {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_operations" xml:space="preserve">
+        <code><![CDATA[/**
+ * Add mass user operations.
+ *
+ * @return
+ *   An array of operations. Each operation is an associative array that may
+ *   contain the following key-value pairs:
+ *   - "label": Required. The label for the operation, displayed in the dropdown menu.
+ *   - "callback": Required. The function to call for the operation.
+ *   - "callback arguments": Optional. An array of additional arguments to pass to
+ *     the callback function.
+ */
+function ${mymodule}_user_operations() {
+  $operations = array(
+    '${name}' => array(
+      'label' => t('${label}'),
+      'callback' => '${callback}',
+    ),
+  );
+  return $operations;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_view_MODULE_DELTA_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform alterations to a specific block.
+ *
+ * @param $data
+ *   An array of data, as returned from the hook_block_view() implementation of
+ *   the module that defined the block:
+ *   - subject: The localized title of the block.
+ *   - content: Either a string or a renderable array representing the content
+ *     of the block. You should check that the content is an array before trying
+ *     to modify parts of the renderable structure.
+ * @param $block
+ *   The block object, as loaded from the database, having the main properties:
+ *   - module: The name of the module that defined the block.
+ *   - delta: The unique identifier for the block within that module, as defined
+ *     in hook_block_info().
+ */
+function ${mymodule}_block_view_MODULE_DELTA_alter(&$data, $block) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_field_instance_settings_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Add settings to an instance field settings form.
+ *
+ * @param $field
+ *   The field structure being configured.
+ * @param $instance
+ *   The instance structure being configured.
+ *
+ * @return
+ *   The form definition for the field instance settings.
+ */
+function ${mymodule}_field_instance_settings_form($field, $instance) {
+  $form = array();
+  $settings = $instance['settings'];${cursor}
+
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_ranking" xml:space="preserve">
+        <code><![CDATA[/**
+ * Provide additional methods of scoring for core search results for nodes.
+ *
+* @return
+ *   An associative array of ranking data. The keys should be strings,
+ *   corresponding to the internal name of the ranking mechanism, such as
+ *   'recent', or 'comments'. The values should be arrays themselves, with the
+ *   following keys available:
+ *   - "title": the human readable name of the ranking mechanism. Required.
+ *   - "join": part of a query string to join to any additional necessary
+ *     table. This is not necessary if the table required is already joined to
+ *     by the base query, such as for the {node} table. Other tables should use
+ *     the full table name as an alias to avoid naming collisions. Optional.
+ *   - "score": part of a query string to calculate the score for the ranking
+ *     mechanism based on values in the database. This does not need to be
+ *     wrapped in parentheses, as it will be done automatically; it also does
+ *     not need to take the weighted system into account, as it will be done
+ *     automatically. It does, however, need to calculate a decimal between
+ *     0 and 1; be careful not to cast the entire score to an integer by
+ *     inadvertently introducing a variable argument. Required.
+ *   - "arguments": if any arguments are required for the score, they can be
+ *     specified in an array here.
+ */
+function ${mymodule}_ranking() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_system_info_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_system_info_alter().
+ *
+ * @param &$info The .info file contents, passed by reference so that it can be altered.
+ * @param $file Full information about the module or theme, including $file->name, and $file->filename.
+ */
+function ${mymodule}_system_info_alter(&$info, $file) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_footer" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_footer().
+ *
+ * @param $main Whether the current page is the front page of the site.
+ * @return The HTML to be inserted.
+ */
+function ${mymodule}_footer($main = 0) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_prepare" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node object about to be shown on the add/edit form.
+ *
+ * @param $node
+ *   The node that is about to be shown on the add/edit form.
+ */
+function ${mymodule}_prepare($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node that is being assembled before rendering.
+ *
+ * @param $node
+ *   The node that is being assembled for rendering.
+ * @param $view_mode
+ *   The $view_mode parameter from node_view().
+ * @param $langcode
+ *   The language code used for rendering.
+ */
+function ${mymodule}_node_view($node, $view_mode, $langcode) {
+  $node->content['${my_additional_field}'] = array(
+    '#markup' => ${additional_field},
+    '#weight' => 10,
+    '#theme' => '${mymodule_my_additional_field}',
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_rdf_namespaces" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to define namespaces for RDF mappings.
+ *
+ * @return
+ *   An associative array of namespaces where the key is the namespace prefix
+ *   and the value is the namespace URI.
+ */
+function ${mymodule}_rdf_namespaces() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_comment" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_comment().
+ */
+function ${mymodule}_comment(&$a1, $op) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_link" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_link().
+ */
+function ${mymodule}_link($type, $object, $teaser = FALSE) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_flush_caches" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_flush_caches().
+ *
+ * @return An array of cache table names.
+ */
+function ${mymodule}_flush_caches() {
+  return array('${cursor}');
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_node_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_node_info().
+ *
+ * @return An array of information on the ${mymodule}'s node types.
+ */
+function ${mymodule}_node_info() {
+  return array(
+    '${mymodule}' => array(
+      'name' => t('${module_node_name}'),
+      'module' => '${mymodule}',
+      'description' => t("${module_node_description}"),
+    )
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_cancel" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on user account cancellations.
+ *
+ * @param $edit
+ *   The array of form values submitted by the user.
+ * @param $account
+ *   The user object on which the operation is being performed.
+ * @param $method
+ *   The account cancellation method.
+ */
+function ${mymodule}_user_cancel($edit, $account, $method) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_watchdog" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_watchdog().
+ */
+function ${mymodule}_watchdog($log_entry) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_file_download" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_file_download().
+ *
+ * @param $filepath String of the file's path.
+ */
+function ${mymodule}_file_download($filepath) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_remove" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to remove stored data if a feed is being deleted or a
+ * feed's items are being removed.
+ *
+ * @param $feed
+ *   The $feed object whose items are being removed.
+ */
+function ${mymodule}_aggregator_remove($feed) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_init" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_init().
+ */
+function ${mymodule}_init() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_overlay_parent_initialize" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to act when an overlay parent window is initialized.
+ */
+function ${mymodule}_overlay_parent_initialize() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_schema_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_schema_alter().
+ *
+ * @param &$schema Nested array describing the schemas for all modules.
+ */
+function ${mymodule}_schema_alter($schema) {
+  $schema['${cursor}'];
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update_index" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update_index().
+ */
+function ${mymodule}_update_index() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="f_submit" xml:space="preserve">
+        <code><![CDATA[/**
+ * Submit ${module_form} form
+ *
+ * @param $form form to submit
+ * @param $form_state A keyed array containing the current state of the form.
+ */
+function ${module_form}_validate($form, &$form_state) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_trigger_info_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter triggers declared by hook_trigger_info().
+ *
+ * @param $triggers
+ *   Array of trigger information returned by hook_trigger_info()
+ *   implementations. Modify this array in place. See hook_trigger_info()
+ *   for information on what this might contain.
+ */
+function ${mymodule}_trigger_info_alter(&$triggers) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_elements" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_elements().
+ */
+function ${mymodule}_elements() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_node_grants" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_node_grants().
+ *
+ * @param $account The user object whose grants are requested.
+ * @param $op The node operation to be performed, such as "view", "update", or "delete".
+ * @return An array whose keys are "realms" of grants such as "user" or "role", and whose values are linear lists of grant IDs.
+ */
+function ${mymodule}_node_grants($account, $op) {
+  ${cursor}
+  return $grants;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_load" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on nodes being loaded from the database.
+ *
+ * @param $nodes
+ *   An array of the nodes being loaded, keyed by nid.
+ * @param $types
+ *   An array containing the types of the nodes.
+ */
+function ${mymodule}_node_load($nodes, $types) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_taxonomy" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_taxonomy().
+ *
+ * @param $op What is being done to $array. Possible values: delete, insert, update.
+ * @param $type What manner of item $array is. Possible values: term, vocabulary.
+ * @param $array The item on which $op is being performed.
+ */
+function ${mymodule}_taxonomy($op, $type, $array = NULL) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_access" xml:space="preserve">
+        <code><![CDATA[/**
+ * Control access to a node.
+ *
+ * @param $node
+ *   The node on which the operation is to be performed, or, if it does
+ *   not yet exist, the type of node to be created.
+ * @param $op
+ *   The operation to be performed. Possible values:
+ *   - "create"
+ *   - "delete"
+ *   - "update"
+ *   - "view"
+ * @param $account
+ *   A user object representing the user for whom the operation is to be
+ *   performed.
+ *
+ * @return
+ *   NODE_ACCESS_ALLOW if the operation is to be allowed;
+ *   NODE_ACCESS_DENY if the operation is to be denied;
+ *   NODE_ACCESSS_IGNORE to not affect this operation at all.
+ */
+function ${mymodule}_node_access($node, $op, $account) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_imagecache_preset" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_imagecache_default_presets()
+ */
+function ${mymodule}_imagecache_default_presets() {
+  $presets = array();
+  ${code}
+
+  return $presets;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_db_rewrite_sql" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_db_rewrite_sql().
+ */
+function ${mymodule}_db_rewrite_sql($query, $primary_table, $primary_field, $args) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_update_index" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node being indexed for searching.
+ *
+ * @param $node
+ *   The node being indexed.
+ *
+ * @return
+ *   Array of additional information to be indexed.
+ */
+function ${mymodule}_node_update_index($node) {
+  $text = '';
+
+  return $text;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_process_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to expose the title and a short description of your
+ * processor.
+ *
+ * @return
+ *   An associative array defining a title and a description string.
+ */
+function ${mymodule}_aggregator_process_info($feed) {
+  return array(
+    'title' => t('${title}'),
+    'description' => t('${description}'),
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_menu" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_menu().
+ *
+ * @return An array of menu items.
+ */
+function ${mymodule}_menu() {
+  $items = array();
+
+  $items['${path}'] = array(
+    'title' => '${title}',
+    'description' => '${description}',
+    'page callback' => '${callback}',
+    'page arguments' => array('${callback_arg}'),
+    'access arguments' => array('${access_arg}'),
+    'file' => 'includes/${mymodule}.${type}.inc',
+  );
+
+  return $items;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_simpletest_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter the list of tests.
+ *
+ * @param $groups
+ *   A two dimension array, the first key is the test group (as defined in
+ *   getInfo) the second is the name of the class and the value is the return
+ *   value of the getInfo method.
+ */
+function ${mymodule}_simpletest_alter(&$groups) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_update_status_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter the information about available updates for projects.
+ *
+ * @param $projects
+ *   Reference to an array of information about available updates to each
+ *   project installed on the system.
+ */
+function ${mymodule}_update_status_alter(&$projects) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_delete().
+ *
+ * @param $node The node being deleted.
+ */
+function ${mymodule}_delete(&$node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_disable" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_disable().
+ */
+function ${mymodule}_disable() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_cancel_methods_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Modify account cancellation methods.
+ *
+ * @param $methods
+ *   An array containing user account cancellation methods, keyed by method id.
+ */
+function ${mymodule}_user_cancel_methods_alter(&$methods) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * The user's account information is being displayed.
+ *
+ * @param $account
+ *   The user object on which the operation is being performed.
+ * @param $view_mode
+ *   View mode, e.g. 'full'.
+ * @param $langcode
+ *   The language code used for rendering.
+ */
+function ${mymodule}_user_view($account, $view_mode, $langcode) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_mail_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_mail_alter().
+ *
+ * @param $message A structured array containing the message to be altered. keys in this array include: id, to, subject, body, from, headers
+ */
+function ${mymodule}_mail_alter(&$message) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="schema_fields" xml:space="preserve">
+        <code><![CDATA[$schema['${database_table}'] = array(
+  'description' => t('${table_description}'),
+  'fields' => array(
+    '${primary_field}' => array(
+      'description' => t('${field_description}'),
+      'type' => '${field_type}', 
+      'not null' => TRUE
+    ),${cursor}
+  ),
+  'indexes' => array(),
+  'unique keys' => array(),
+  'primary key' => array('${primary_field}'),
+);]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_path_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to respond to a path being updated.
+ *
+ * @param $path
+ *   An associative array containing the following keys:
+ *   - source: The internal system path.
+ *   - alias: The URL alias.
+ *   - pid: Unique path alias identifier.
+ *   - language: The language of the alias.
+ */
+function ${mymodule}_path_update($path) {
+  db_update('${mytable}')
+    ->fields(array('alias' => $path['alias']))
+    ->condition('pid', $path['pid'])
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_user_operations" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_user_operations().
+ */
+function ${mymodule}_user_operations() {
+  $operations = array(
+    '${cursor}' => array(
+      'label' => t(''),
+      'callback' => ''
+    )
+  );
+  return $operations;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_form_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_form_alter().
+ */
+function ${mymodule}_form_alter(&$form, $form_state, $form_id) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_actions_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_actions_delete().
+ *
+ * @param $aid The action ID.
+ */
+function ${mymodule}_actions_delete($aid) {
+  ${cursor}db_query("DELETE FROM {actions_assignments} WHERE aid = '%s'", $aid);
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_type_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to node type creation.
+ *
+ * @param $info
+ *   The node type object that is being created.
+ */
+function ${mymodule}_node_type_insert($info) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_dashboard_regions" xml:space="preserve">
+        <code><![CDATA[/**
+ * Adds regions to the dashboard.
+ *
+ * @return
+ *   An array whose keys are the names of the dashboard regions and whose
+ *   values are the titles that will be displayed in the blocks administration
+ *   interface. The keys are also used as theme wrapper functions.
+ */
+function hook_dashboard_regions() {
+  return array('${mymodule_dashboard_region}' => "${title}");
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_type_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to node type deletion.
+ *
+ * @param $info
+ *   The node type object that is being deleted.
+ */
+function ${mymodule}_node_type_delete($info) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_perm" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_perm().
+ *
+ * @return array An array of valid permissions for the ${mymodule} module
+ */
+function ${mymodule}_perm() {
+  return array('${cursor}');
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_test_group_finished" xml:space="preserve">
+        <code><![CDATA[/**
+ * A test group has finished.
+ */
+function ${mymodule}_test_group_finished() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_menu_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Informs modules that a custom menu was created.
+ *
+ * @param $menu
+ *   An array representing a custom menu:
+ *   - menu_name: The unique name of the custom menu.
+ *   - title: The human readable menu title.
+ *   - description: The custom menu description.
+ */
+function ${mymodule}_menu_insert($menu) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="my_fa" contexts="php-code" uuid="org.netbeans.modules.php.editor.codetemplate.mySql.fa" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_locale()
+ */
+function ${cursor}_locale($op = 'groups') {
+
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="ann" xml:space="preserve">
+        <code><![CDATA[/**
+ * @file
+ * ${cursor}
+ * 
+ *
+ * @author Kálmán Hosszu - hosszu.kalman@gmail.com - http://www.kalman-hosszu.com
+ */
+ 
+/* ====================== */
+/* ==== DRUPAL HOOKS ==== */
+/* ====================== */
+
+
+/* ====================== */
+/* == MODULE FUNCTIONS == */
+/* ====================== */]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_field_formatter_settings_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Returns form elements for a formatter's settings.
+ *
+ * @param $field
+ *   The field structure being configured.
+ * @param $instance
+ *   The instance structure being configured.
+ * @param $view_mode
+ *   The view mode being configured.
+ * @param $form
+ *   The (entire) configuration form array, which will usually have no use here.
+ * @param $form_state
+ *   The form state of the (entire) configuration form.
+ *
+ * @return
+ *   The form elements for the formatter settings.
+ */
+function ${mymodule}_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $element = array();
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];${cursor}
+  return $element;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_presave" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node being inserted or updated.
+ *
+ * @param $node
+ *   The node that is being inserted or updated.
+ */
+function ${mymodule}_node_presave($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_list_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on blocks prior to rendering.
+ *
+ * @param $blocks
+ *   An array of $blocks, keyed by the block ID.
+ */
+function ${mymodule}_block_list_alter(&$blocks) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_profile_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_profile_alter().
+ *
+ * @param &$account A user object whose profile is being rendered. Profile items are stored in $account->content.
+ */
+function ${mymodule}_profile_alter(&$account) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_publish" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being published by the moderator.
+ *
+ * @param $comment
+ *   Passes in the comment the action is being performed on.
+ * @return
+ *   Nothing.
+ */
+function ${mymodule}_comment_publish($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="schema_field" xml:space="preserve">
+        <code><![CDATA[${field_name}' => array(
+  'description' => t('${field_description}'),
+  'type' => '${field_type}',${cursor}
+),]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_shortcut_default_set" xml:space="preserve">
+        <code><![CDATA[/**
+ * Return the name of a default shortcut set for the provided user account.
+ *
+ * @param $account
+ *   The user account whose default shortcut set is being requested.
+ * @return
+ *   The name of the shortcut set that this module recommends for that user, if
+ *   there is one.
+ */
+function ${mymodule}_shortcut_default_set($account) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_role_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Inform other modules that a user role has been deleted.
+ *
+ * @param $role
+ *   The $role object being deleted.
+ */
+function ${mymodule}_user_role_delete($role) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to node deletion.
+ *
+ * @param $node
+ *   The node that is being deleted.
+ */
+function ${mymodule}_node_delete($node) {
+  db_delete('${mytable}')
+    ->condition('nid', $node->nid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_filter_tips" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_filter_tips().
+ *
+ * @param $delta Which of this module's filters to use. Modules which only implement one filter can ignore this parameter.
+ * @param $format Which format we are providing tips for.
+ * @param $long If set to true, long tips are requested, otherwise short tips are needed.
+ * @return string
+ */
+function ${mymodule}_filter_tips($delta, $format, $long = FALSE) {
+  return t('${cursor}');
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_role_presave" xml:space="preserve">
+        <code><![CDATA[/**
+ * Inform other modules that a user role is about to be saved.
+ *
+ * @param $role
+ *   A user role object.
+ */
+function ${mymodule}_user_role_presave($role) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_menu_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Informs modules that a custom menu was deleted.
+ *
+ * @param $link
+ *   An array representing a custom menu:
+ *   - menu_name: The unique name of the custom menu.
+ *   - title: The human readable menu title.
+ *   - description: The custom menu description.
+ */
+function ${mymodule}_menu_delete($menu) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update().
+ *
+ * @param $node The node being updated.
+ */
+function ${mymodule}_update($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_insert().
+ *
+ * @param $node The node being inserted.
+ */
+function ${mymodule}_insert($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_categories" xml:space="preserve">
+        <code><![CDATA[/**
+ * Retrieve a list of user setting or profile information categories.
+ *
+ * @return
+ *   An array of associative arrays. Each inner array has elements:
+ *   - "name": The internal name of the category.
+ *   - "title": The human-readable, localized name of the category.
+ *   - "weight": An integer specifying the category's sort ordering.
+ *   - "access callback": Name of the access callback function to use to
+ *     determine whether the user can edit the category. Defaults to using
+ *     user_edit_access(). See hook_menu() for more information on access
+ *     callbacks.
+ *   - "access arguments": Arguments for the access callback function. Defaults
+ *     to array(1).
+ */
+function ${mymodule}_user_categories() {
+  return array(array(
+    'name' => '${name}',
+    'title' => t('${title}'),
+    'weight' => ${weight},
+  ));
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Define module-provided node types.
+ *
+ * @return
+ *   An array of information defining the module's node types. The array
+ *   contains a sub-array for each node type, with the machine-readable type
+ *   name as the key. Each sub-array has up to 10 attributes. Possible
+ *   attributes:
+ *   - "name": the human-readable name of the node type. Required.
+ *   - "base": the base string used to construct callbacks corresponding to
+ *      this node type.
+ *      (i.e. if base is defined as example_foo, then example_foo_insert will
+ *      be called when inserting a node of that type). This string is usually
+ *      the name of the module, but not always. Required.
+ *   - "description": a brief description of the node type. Required.
+ *   - "help": help information shown to the user when creating a node of
+ *      this type.. Optional (defaults to '').
+ *   - "has_title": boolean indicating whether or not this node type has a title
+ *      field. Optional (defaults to TRUE).
+ *   - "title_label": the label for the title field of this content type.
+ *      Optional (defaults to 'Title').
+ *   - "locked": boolean indicating whether the administrator can change the
+ *      machine name of this type. FALSE = changeable (not locked),
+ *      TRUE = unchangeable (locked). Optional (defaults to TRUE).
+ */
+function ${mymodule}_node_info() {
+  return array(
+    '${type}' => array(
+      'name' => t('${name}'),
+      'base' => '${base}',
+      'description' => t('${description}'),
+    ),
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_rdf_mapping" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to define RDF mappings for field bundles.
+ *
+ * @return
+ *   A list of mapping structures, where each mapping is an associative array:
+ *   - type: The name of an entity type (e.g., 'node', 'comment', and so on.)
+ *   - bundle: The name of the bundle (e.g., 'page', 'blog', or
+ *     RDF_DEFAULT_BUNDLE for default mappings.)
+ *   - mapping: The mapping structure which applies to the entity type and
+ *     bundle. A mapping structure is an array with keys corresponding to
+ *     existing field instances in the bundle. Each field is then described in
+ *     terms of the RDF mapping:
+ *     - predicates: An array of RDF predicates which describe the relation
+ *       between the bundle (RDF subject) and the value of the field (RDF
+ *       object). This value is either some text, another bundle, or a URI in
+ *       general.
+ *     - datatype: Is used along with 'callback' to format data so that it is
+ *       readable by machines. A typical example is a date which can be written
+ *       in many different formats but should be translated into a uniform
+ *       format for machine consumption.
+ *     - callback: A function name to invoke for 'datatype'.
+ *     - type: A string used to determine the type of RDFa markup which will be
+ *       used in the final HTML output, depending on whether the RDF object is a
+ *       literal text or another RDF resource.
+ *     - rdftype: A special property used to define the type of the instance.
+ *       Its value should be an array of RDF classes.
+ */
+function ${mymodule}_rdf_mapping() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_role_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Inform other modules that a user role has been added.
+ *
+ * @param $role
+ *   A user role object.
+ */
+function ${mymodule}_user_role_insert($role) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_field_formatter_settings_summary" xml:space="preserve">
+        <code><![CDATA[/**
+ * Returns a short summary for the current formatter settings of an instance.
+ *
+ * @param $field
+ *   The field structure.
+ * @param $instance
+ *   The instance structure.
+ * @param $view_mode
+ *   The view mode for which a settings summary is requested.
+ *
+ * @return
+ *   A string containing a short summary of the formatter settings.
+ */
+function ${mymodule}_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $summary = '';
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];${cursor}
+  return $summary;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_update_projects_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter the list of projects before fetching data and comparing versions.
+ *
+ * @param $projects
+ *   Reference to an array of the projects installed on the system. This
+ *   includes all the metadata documented in the comments below for each
+ *   project (either module or theme) that is currently enabled. The array is
+ *   initially populated inside update_get_projects() with the help of
+ *   _update_process_info_list(), so look there for examples of how to
+ *   populate the array with real values.
+ */
+function ${mymodule}_update_projects_alter(&$projects) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_dashboard_regions_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter dashboard regions provided by modules.
+ *
+ * @param $regions
+ *   An array containing all dashboard regions, in the format provided by
+ *   hook_dashboard_regions().
+ */
+function ${mymodule}_dashboard_regions_alter($regions) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_info_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Change block definition before saving to the database.
+ *
+ * @param $blocks
+ *   A multidimensional array of blocks keyed by the defining module and delta;
+ *   the values are blocks returned by hook_block_info(). This hook is fired
+ *   after the blocks are collected from hook_block_info() and the database,
+ *   right before saving back to the database.
+ * @param $theme
+ *   The theme these blocks belong to.
+ * @param $code_blocks
+ *   The blocks as defined in hook_block_info() before being overwritten by the
+ *   database data.
+ */
+function ${mymodule}_block_info_alter(&$blocks, $theme, $code_blocks) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_nodeapi" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_nodeapi().
+ *
+ * @param &$node The node the action is being performed on.
+ * @param $op What kind of action is being performed. Possible values: alter, delete, delete revision, insert, load,
+ *   prepare, prepare translation, print, rss item, search result, presave, update, update index, validate, view
+ * @param $a3
+ * @param $a4
+ */
+function ${mymodule}_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case '${op}':
+      break;
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_submit" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node after validated form values have been copied to it.
+ *
+ * @param $node
+ *   The node being updated in response to a form submission.
+ * @param $form
+ *   The form being used to edit the node.
+ * @param $form_state
+ *   The form state array.
+ */
+function ${mymodule}_node_submit($node, $form, &$form_state) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_load" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on nodes being loaded from the database.
+ *
+ * @param $nodes
+ *   An array of the nodes being loaded, keyed by nid.
+ */
+function ${mymodule}_load($nodes) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_FILTER_process" xml:space="preserve">
+        <code><![CDATA[/**
+ * Process callback for hook_filter_info().
+ *
+ * @param $text
+ *   The text string to be filtered.
+ * @param $filter
+ *   The filter object containing settings for the given format.
+ * @param $format
+ *   The text format object assigned to the text to be filtered.
+ * @param $langcode
+ *   The language code of the text to be filtered.
+ * @param $cache
+ *   A Boolean indicating whether the filtered text is going to be cached in
+ *   {cache_filter}.
+ * @param $cache_id
+ *   The ID of the filtered text in {cache_filter}, if $cache is TRUE.
+ *
+ * @return
+ *   The filtered text.
+ */
+function ${mymodule}_filter_FILTER_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  ${cursor}
+  return $text;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="prt" xml:space="preserve">
+        <code><![CDATA[print '<pre>'; print_r(${VARIABLE variableFromPreviousAssignment default="$variable"}); print '</pre>';]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_overlay_child_initialize" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to act when an overlay child window is initialized.
+ */
+function ${mymodule}_overlay_child_initialize() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_load" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on user objects when loaded from the database.
+ *
+ * @param $users
+ *   An array of user objects, indexed by uid.
+ */
+function ${mymodule}_user_load($users) {
+  $result = db_query('SELECT uid, ${coll} FROM ${my_table} WHERE uid IN (:uids)', array(':uids' => array_keys($users)));
+  foreach ($result as $record) {
+    $users[$record->uid]->${coll} = $record->${coll};
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_install" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_install().
+ */
+function ${mymodule}_install() {
+  drupal_install_schema('${mymodule}');${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update_status_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update_status_alter().
+ *
+ * @param $projects Reference to an array of information about available updates to each project installed on the system.
+ */
+function ${mymodule}_update_status_alter(&$projects) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_parse" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to create an alternative parser for aggregator module.
+ *
+ * @param $feed
+ *   The $feed object that describes the resource to be parsed.
+ *   $feed->source_string contains the raw feed data as a string. Parse data
+ *   from $feed->source_string and expose it to other modules as an array of
+ *   data items on $feed->items.
+ *
+ * @return
+ *   TRUE if parsing was successful, FALSE otherwise.
+ */
+function ${mymodule}_aggregator_parse($feed) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_prepare" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_prepare().
+ *
+ * @param &$node The node being saved.
+ */
+function ${mymodule}_prepare(&$node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_boot" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_boot().
+ */
+function ${mymodule}_boot() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_enable" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_enable().
+ */
+function ${mymodule}_enable() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_user" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_user().
+ *
+ * @param $op What kind of actions is being performed. Possible values: after_update, categories, delete, form, insert, load, login, logout, register, submit, update, validate, view
+ * @param &$edit The array of form values submitted by the user.
+ * @param &$account The user object on which the operation is being performed.
+ * @param $category The active category of user information being edited.
+ */
+function ${mymodule}_user($op, &$edit, &$account, $category = NULL) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="h_action_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_action_info().
+ */
+function ${mymodule}_action_info() {
+  return array(
+    '${mymodule}_${cursor}' => array(
+      'description' => t(''),
+      'type' => '',
+      'configurable' => ,
+      'hooks' => array(
+        '' => array(),
+      )
+    )
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_search" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_search().
+ *
+ * @param $op A string defining which operation to perform: admin, name, reset, search, status
+ * @param $keys The search keywords as entered by the user.
+ */
+function ${mymodule}_search($op = 'search', $keys = NULL) {
+  switch ($op) {
+    case 'name':
+      return;
+
+    case 'reset':
+      return;
+
+    case 'status':
+      return;
+
+    case 'admin':
+      return;
+      
+    case 'search':
+      return;
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to updates to a node.
+ *
+ * @param $node
+ *   The node that is being updated.
+ */
+function ${mymodule}_update($node) {
+  db_update('${mytable}')
+    ->fields(array('${extra}' => $node->${extra}))
+    ->condition('nid', $node->nid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_node_access_records" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_node_access_records().
+ */
+function ${mymodule}_node_access_records($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_operations" xml:space="preserve">
+        <code><![CDATA[/**
+ * Add mass node operations.
+ *
+ * @return
+ *   An array of operations. Each operation is an associative array that may
+ *   contain the following key-value pairs:
+ *   - 'label': Required. The label for the operation, displayed in the dropdown
+ *     menu.
+ *   - 'callback': Required. The function to call for the operation.
+ *   - 'callback arguments': Optional. An array of additional arguments to pass
+ *     to the callback function.
+ */
+function ${mymodule}_node_operations() {
+  $operations = array(
+    '${opname}' => array(
+      'label' => t('${optitle}'),
+      'callback' => '${opcallback}',
+      'callback arguments' => array(${oparg}),
+    ),
+  );
+  return $operations;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to user deletion.
+ *
+ * @param $account
+ *   The account that is being deleted.
+ */
+function ${mymodule}_user_delete($account) {
+  db_delete('${mytable}')
+    ->condition('uid', $account->uid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="test" xml:space="preserve">
+        <code><![CDATA[${NAME TitleProperty}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_view_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter the results of node_view().
+ *
+ * @param $build
+ *   A renderable array representing the node content.
+ *
+ * @see node_view()
+ * @see hook_entity_view_alter()
+ */
+function ${mymodule}_node_view_alter(&$build) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to node deletion.
+ *
+ * @param $node
+ *   The node that is being deleted.
+ */
+function ${mymodule}_delete($node) {
+  db_delete('${mytable}')
+    ->condition('nid', $nid->nid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_locale" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_locale().
+ *
+ * @param $op Type of operation. Currently, only supports 'groups'.
+ */
+function ${mymodule}_locale($op = 'groups') {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_xmlrpc" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_xmlrpc().
+ */
+function ${mymodule}_xmlrpc() {
+  return array(
+    ${cursor}
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_view_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment was built; the module may modify the structured content.
+ *
+ * @param $build
+ *   A renderable array representing the comment.
+ */
+function ${mymodule}_comment_view_alter(&$build) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Define all blocks provided by the module.
+ *
+ * @return
+ *   An associative array whose keys define the delta for each block and whose
+ *   values contain the block descriptions. Each block description is itself an
+ *   associative array, with the following key-value pairs:
+ *   - 'info': (required)
+ *   - 'cache': (optional)
+ *   - 'properties': (optional)
+ *   - 'weight': (optional)
+ *   - 'status': (optional)
+ *   - 'region': (optional)
+ *   - 'visibility': (optional)
+ *   - 'pages': (optional)
+ */
+function ${mymodule}_block_info() {
+  $blocks = array();
+  
+  $blocks['${block}'] = array(
+    'info' => t('${info}'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_presave" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment passed validation and is about to be saved.
+ *
+ * Modules may make changes to the comment before it is saved to the database.
+ *
+ * @param $comment
+ *   The comment object.
+ */
+function ${mymodule}_comment_presave($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_translated_menu_link_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_translated_menu_link_alter().
+ *
+ * @param $item Associative array defining a menu link after _menu_link_translate()
+ * @param $map Associative array containing the menu $map (path parts and/or objects).
+ */
+function ${mymodule}_translated_menu_link_alter(&$item, $map) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_translation_link_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_translation_link_alter().
+ *
+ * @param $links Nested array of links keyed by language code.
+ * @param $path The current path.
+ */
+function ${mymodule}_translation_link_alter(&$links, $path) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_action_info_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_action_info_alter().
+ *
+ * @param $actions Array of action information.
+ */
+function ${mymodule}_action_info_alter(&$actions) {
+  $actions['${cursor}'];
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_cron" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_cron().
+ */
+function ${mymodule}_cron() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update_last_removed" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update_last_removed().
+ */
+function ${mymodule}_update_last_removed() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Build ${module_form} form.
+ * 
+ * @param array $form_state
+ * @return array The created form. 
+ */
+function ${module_form}($form_state) {
+  $form = array();
+  
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="form_validate" xml:space="preserve">
+        <code><![CDATA[/**
+ * Validate ${module_form} form
+ *
+ * @param $form form to validate
+ * @param $form_state A keyed array containing the current state of the form.
+ */
+function ${module_form}_validate($form, &$form_state) {
+  if (${form_field_test}) {
+    form_set_error('${form_field_id}', t('${form_field_error}'));
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_validate" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform node validation before a node is created or updated.
+ *
+ * @param $node
+ *   The node being validated.
+ * @param $form
+ *   The form being used to edit the node.
+ * @param $form_state
+ *   The form state array.
+ */
+function ${mymodule}_validate($node, $form, &$form_state) {
+  if (${condition}) {
+    form_set_error('${field}', t('${message}'));
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_form_FORM_ID_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_form_${form_id}_alter().
+ */
+function ${mymodule}_form_${form_id}_alter(&$form, &$form_state) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_theme" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_theme().
+ * 
+ * Define the following templates:
+ *  - 
+ *
+ * @return Array of defined theme functions
+ *
+ * @see ${template}.tpl.php
+ */
+function ${mymodule}_theme($existing, $type, $theme, $path) {
+  return array(
+    '${function_name}' => array(
+      'arguments' => array('${variable}' => NULL),
+      'template' => '${template}',
+      'path' => drupal_get_path('module', '${mymodule}') . '/theme',
+    ),
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_menu_link_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_menu_link_alter().
+ *
+ * @param $item Associative array defining a menu link as passed into menu_link_save().
+ * @param $menu Associative array containg the menu router returned from menu_router_build().
+ */
+function ${mymodule}_menu_link_alter(&$item, $menu) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_load" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_load().
+ *
+ * @param $node The node being loaded.
+ */
+function ${mymodule}_load($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_form().
+ *
+ * @param &$node The node being added or edited.
+ * @param $form_state The form state array.
+ * @return An array containing the form elements to be displayed in the node edit form.
+ */
+function ${mymodule}_form(&$node, $form_state) {
+  $form = array();
+  
+  $form['${cursor}'] = array(
+    '#type' => ''
+  );
+  
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being inserted.
+ *
+ * @param $comment
+ *   The comment object.
+ */
+function ${mymodule}_comment_insert($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_grants" xml:space="preserve">
+        <code><![CDATA[/**
+ * Inform the node access system what permissions the user has.
+ *
+ * @param $account
+ *   The user object whose grants are requested.
+ * @param $op
+ *   The node operation to be performed, such as "view", "update", or "delete".
+ *
+ * @return
+ *   An array whose keys are "realms" of grants, and whose values are arrays of
+ *   the grant IDs within this realm that this user is being granted.
+ */
+function ${mymodule}_node_grants($account, $op) {
+  $grants = array();${cursor}
+  return $grants;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_format_disable" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform actions when a text format has been disabled.
+ *
+ * @param $format
+ *   The format object of the format being disabled.
+ */
+function ${mymodule}_filter_format_disable($format) {
+  ${mymodule}_cache_rebuild();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_type_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to node type updates.
+ *
+ * @param $info
+ *   The node type object that is being updated.
+ */
+function ${mymodule}_node_type_update($info) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_verify_update_archive" xml:space="preserve">
+        <code><![CDATA[/**
+ * Verify an archive after it has been downloaded and extracted.
+ *
+ * @param string $project
+ *   The short name of the project that has been downloaded.
+ * @param string $archive_file
+ *   The filename of the unextracted archive.
+ * @param string $directory
+ *   The directory that the archive was extracted into.
+ *
+ * @return
+ *   If there are any problems, return an array of error messages. If there are
+ *   no problems, return an empty array.
+ */
+function ${mymodule}_verify_update_archive($project, $archive_file, $directory) {
+  $errors = array();${cursor}
+  return $errors;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_schema" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_schema().
+ */
+function ${mymodule}_schema() {
+  $schema = array();
+  
+  $schema['${table}'] = array(
+    'description' => '',
+    'fields' => array(
+      'serial' => array(
+        'description' => '',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'int' => array(
+        'description' => '',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'tiny' => array(
+        'description' => '',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'varchar' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'text' => array(
+        'description' => '',
+        'type' => 'text',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'indexes' => array(
+      'node_changed'  => array('changed'),
+      'node_created'  => array('created'),
+    ),
+    'unique keys' => array(
+      'nid_vid' => array('nid', 'vid'),
+      'vid' => array('vid'),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  return $schema;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_presave" xml:space="preserve">
+        <code><![CDATA[/**
+ * A user account is about to be created or updated.
+ *
+ * @param $edit
+ *   The array of form values submitted by the user.
+ * @param $account
+ *   The user object on which the operation is performed.
+ * @param $category
+ *   The active category of user information being edited.
+ */
+function ${mymodule}_user_presave(&$edit, $account, $category) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being updated.
+ *
+ * @param $comment
+ *   The comment object.
+ */
+function ${mymodule}_comment_update($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_FILTER_tips" xml:space="preserve">
+        <code><![CDATA[/**
+ * Tips callback for hook_filter_info().
+ *
+ * @param $filter
+ *   An object representing the filter.
+ * @param $format
+ *   An object representing the text format the filter is contained in.
+ * @param $long
+ *   Whether this callback should return a short tip to display in a form
+ *   (FALSE), or whether a more elaborate filter tips should be returned for
+ *   theme_filter_tips() (TRUE).
+ *
+ * @return
+ *   Translated text to display as a tip.
+ */
+function ${mymodule}_filter_FILTER_tips($filter, $format, $long) {
+ if ($long) {
+    return t('${long_tips}');
+  }
+  else {
+    return t('${short_tips}');
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Define content filters.
+ *
+ * @return
+ *   An associative array of filters, whose keys are internal filter names,
+ *   which should be unique and therefore prefixed with the name of the module.
+ *   Each value is an associative array describing the filter, with the
+ *   following elements (all are optional except as noted):
+ *   - title: (required) An administrative summary of what the filter does.
+ *   - description: Additional administrative information about the filter's
+ *     behavior, if needed for clarification.
+ *   - settings callback: The name of a function that returns configuration form
+ *     elements for the filter. See hook_filter_FILTER_settings() for details.
+ *   - default settings: An associative array containing default settings for
+ *     the filter, to be applied when the filter has not been configured yet.
+ *   - prepare callback: The name of a function that escapes the content before
+ *     the actual filtering happens. See hook_filter_FILTER_prepare() for
+ *     details.
+ *   - process callback: (required) The name the function that performs the
+ *     actual filtering. See hook_filter_FILTER_process() for details.
+ *   - cache (default TRUE): Specifies whether the filtered text can be cached.
+ *     Note that setting this to FALSE makes the entire text format not
+ *     cacheable, which may have an impact on the site's overall performance.
+ *     See filter_format_allowcache() for details.
+ *   - tips callback: The name of a function that returns end-user-facing filter
+ *     usage guidelines for the filter. See hook_filter_FILTER_tips() for
+ *     details.
+ *   - weight: A default weight for the filter in new text formats.
+ */
+function ${mymodule}_filter_info() {
+  $filters['${filter_name}'] = array(
+    'title' => t('${filter_title}'),
+    'description' => t('${filter_description}'),
+    'process callback' => '_${filter_name}',
+    'settings callback' => '_${filter_name}_settings',
+    'default settings' => array(
+      '${setting}' => ${setting_value},
+    ),
+    'tips callback' => '_${filter_name}_tips',
+  );
+
+  return $filters;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_view_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * The user was built; the module may modify the structured content.
+ *
+ * @param $build
+ *   A renderable array representing the user.
+ */
+function ${mymodule}_user_view_alter(&$build) {
+  ${cursor}
+}
+]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_FILTER_settings" xml:space="preserve">
+        <code><![CDATA[/**
+ * Settings callback for hook_filter_info().
+ *
+ * @param $form
+ *   The prepopulated form array of the filter administration form.
+ * @param $form_state
+ *   The state of the (entire) configuration form.
+ * @param $filter
+ *   The filter object containing the current settings for the given format,
+ *   in $filter->settings.
+ * @param $format
+ *   The format object being configured.
+ * @param $defaults
+ *   The default settings for the filter, as defined in 'default settings' in
+ *   hook_filter_info(). These should be combined with $filter->settings to
+ *   define the form element defaults.
+ * @param $filters
+ *   The complete list of filter objects that are enabled for the given format.
+ *
+ * @return
+ *   An array of form elements defining settings for the filter. Array keys
+ *   should match the array keys in $filter->settings and $defaults.
+ */
+function ${mymodule}_filter_FILTER_settings($form, &$form_state, $filter, $format, $defaults, $filters) {
+  $filter->settings += $defaults;
+
+  $elements = array();
+  ${cursor}
+  return $elements;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="cck_import" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_install().
+ */
+function ${mymodule}_install() {
+  // Create new content type
+  $cck_content = file_get_contents(drupal_get_path('module', '${mymodule}') . '/${type}.cck');
+
+  $form_state = array();
+  
+  $form_state['values']['type_name'] = t('<create>');
+  $form_state['values']['macro'] = $cck_content;
+  $form_state['values']['submit'] = t('Import');
+
+  drupal_execute('content_copy_import_form', $form_state);
+}
+
+/**
+ * Implementation of hook_install()
+ */
+function ${mymodule}_uninstall() {
+  // Delete created nodes
+  $result = db_query("SELECT nid FROM {node} WHERE type = '${type}'");
+
+  while ($nid = db_fetch_array($result)) {
+    node_delete($nid['nid']);
+  }
+  drupal_set_message(t('The created "${tyoename}" nodes are deleted.'));
+
+  // Delete created node type
+  node_type_delete('${type}');
+  drupal_set_message(t('The created "${tyoename}" node type is deleted.'));
+
+  // Delete menu cache
+  menu_rebuild();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="form_item" xml:space="preserve">
+        <code><![CDATA[$form[${form_item}] = array(
+  '#type' => '${form_item_type}',
+  '#title' => t('${form_item_title}'),
+  '#description' => t('${form_item_description}'),
+  '#attributes' => array(),
+  '#required' => FALSE,
+  '#tree' => FALSE,
+  '#parents' => array(),
+);]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_access_records" xml:space="preserve">
+        <code><![CDATA[/**
+ * Set permissions for a node to be written to the database.
+ *
+ * @param $node
+ *   The node that has just been saved.
+ *
+ * @return
+ *   An array of grants as defined above.
+ */
+function ${mymodule}_node_access_records($node) {
+  $grants = array();${cursor}
+  return $grants;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_forms" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_forms().
+ */
+function ${mymodule}_forms() {
+  $forms['${cursor}'] = array(
+    'callback' => ''
+  );
+  return $forms;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_process" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to create a processor for aggregator module.
+ *
+ * @param $feed
+ *   The $feed object that describes the resource to be processed. $feed->items
+ *   contains an array of feed items downloaded and parsed at the parsing
+ *   stage. See hook_aggregator_parse() for the basic format of a single item
+ *   in the $feed->items array. For the exact format refer to the particular
+ *   parser in use.
+ */
+function ${mymodule}_aggregator_process($feed) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_path_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to respond to a path being deleted.
+ *
+ * @param $path
+ *   An associative array containing the following keys:
+ *   - source: The internal system path.
+ *   - alias: The URL alias.
+ *   - pid: Unique path alias identifier.
+ *   - language: The language of the alias.
+ */
+function ${mymodule}_path_delete($path) {
+  db_delete('${mytable}')
+    ->condition('pid', $path['pid'])
+    ->execute();
+}
+]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_view().
+ *
+ * @param $node The node to be displayed.
+ * @param $teaser Whether we are to generate a "teaser" or summary of the node, rather than display the whole thing.
+ * @param $page Whether the node is being displayed as a standalone page.
+ */
+function ${mymodule}_view($node, $teaser = FALSE, $page = FALSE) {
+  ${cursor}
+  return $node;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_access" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_access().
+ *
+ * @param $op Operation to be performed.
+ * @param $node The node on which the operation is to be performed, or, if it does not yet exist, the type of node to be created. 
+ * @param $account A user object representing the user for whom the operation is to be performed.
+ * @return TRUE if the operation is to be allowed; FALSE if the operation is to be denied; NULL to not override the settings in the node_access table, or access control modules.
+ */
+function ${mymodule}_access($op, $node, $account) {
+
+  switch ($op) {
+    case "create" :
+      return;
+    case "delete" :
+      return;
+    case "update" :
+      return;
+    case "view" :
+      return;
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to creation of a new node.
+ *
+ * @param $node
+ *   The node that is being created.
+ */
+function ${mymodule}_node_insert($node) {
+  db_insert('${mytable}')
+    ->fields(array(
+      'nid' => $node->nid,
+      '${extra}' => $node->${extra},
+    ))
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_revision_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to deletion of a node revision.
+ *
+ * @param $node
+ *   The node revision (node object) that is being deleted.
+ */
+function ${mymodule}_node_revision_delete($node) {
+  db_delete('${mytable}')
+    ->condition('vid', $node->vid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_load" xml:space="preserve">
+        <code><![CDATA[/**
+ * Comments are being loaded from the database.
+ *
+ * @param $comments
+ *  An array of comment objects indexed by cid.
+ */
+function ${mymodule}_comment_load($comments) {
+  $result = db_query('SELECT cid, foo FROM {${mytable}} WHERE cid IN (:cids)', array(':cids' => array_keys($comments)));
+  foreach ($result as $record) {
+    $comments[$record->cid]->${myvar} = $record->${myvar};
+  }${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_format_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform actions when a text format has been updated.
+ *
+ * @param $format
+ *   The format object of the format being updated.
+ */
+function ${mymodule}_filter_format_update($format) {
+  ${mymodule}_cache_rebuild();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_menu_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_menu_alter().
+ *
+ * @param $items Associative array of menu router definitions returned from hook_menu().
+ */
+function ${mymodule}_menu_alter(&$items) {
+  $items['${cursor}'];
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_pre_block" xml:space="preserve">
+        <code><![CDATA[/**
+ * 
+ * Implementation of hook_preprocess_block().
+ * 
+ * Process variables for block.tpl.php
+ * 
+ * @param array $variables
+ * @see block.tpl.php
+ */
+function ${mymodule}_preprocess_block(&$variables) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_term_path" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_term_path().
+ *
+ * @param $term A term object.
+ * @return An internal Drupal path.
+ */
+function ${mymodule}_term_path($term) {
+  return '${cursor}';
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Display a node editing form.
+ *
+ * @param $node
+ *   The node being added or edited.
+ * @param $form_state
+ *   The form state array.
+ *
+ * @return
+ *   An array containing the title and any custom form elements to be displayed
+ *   in the node editing form.
+ */
+function ${mymodule}_form($node, &$form_state) {
+  $form = array();
+  $type = node_type_get_type($node);
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => check_plain($type->title_label),
+    '#default_value' => !empty($node->title) ? $node->title : '',
+    '#required' => TRUE, '#weight' => -5
+  );${cursor}
+
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_fetch" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to create an alternative fetcher for aggregator module.
+ *
+ * @param $feed
+ *   The $feed object that describes the resource to be downloaded.
+ *   $feed->url contains the link to the feed. Download the data at the URL
+ *   and expose it to other modules by attaching it to $feed->source_string.
+ *
+ * @return
+ *   TRUE if fetching was successful, FALSE otherwise.
+ */
+function ${mymodule}_aggregator_fetch($feed) {
+  ${cursor};
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_unpublish" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being unpublished by the moderator.
+ *
+ * @param $comment
+ *   Passes in the comment the action is being performed on.
+ * @return
+ *   Nothing.
+ */
+function ${mymodule}_comment_unpublish($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to updates to a node.
+ *
+ * @param $node
+ *   The node that is being updated.
+ */
+function ${mymodule}_node_update($node) {
+  db_update('${mytable}')
+    ->fields(array('${extra}' => $node->${extra}))
+    ->condition('nid', $node->nid)
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_trigger_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Declare triggers (events) for users to assign actions to.
+ *
+ * @return
+ *   A nested associative array.
+ *   - The outermost key is the name of the module that is defining the triggers.
+ *     This will be used to create a local task (tab) in the trigger module's
+ *     user interface. A contrib module may supply a trigger for a core module by
+ *     giving the core module's name as the key. For example, you could use the
+ *     'node' key to add a node-related trigger.
+ *     - Within each module, each individual trigger is keyed by a hook name
+ *       describing the particular trigger (this is not visible to the user, but
+ *       can be used by your module for identification).
+ *       - Each trigger is described by an associative array. Currently, the only
+ *         key-value pair is 'label', which contains a translated human-readable
+ *         description of the triggering event.
+ *   For example, the trigger set for the 'node' module has 'node' as the
+ *   outermost key and defines triggers for 'node_insert', 'node_update',
+ *   'node_delete' etc. that fire when a node is saved, updated, etc.
+ */
+function ${mymodule}_trigger_info() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_node_operations" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_node_operations().
+ */
+function ${mymodule}_node_operations() {
+  $operations = array();
+  
+  if (user_access('${perm}')) {
+    $operations['${name}'] = array(
+      'label' => t('${label}'),
+      'callback' => '${callback}',
+      'callback arguments' => array(${cursor}),
+    );
+  }
+  
+  return $operations;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_node_type" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_node_type().
+ *
+ * @param $op What is being done to $info. Possible values: delete, insert, update.
+ * @param $info The node type on which $op is being performed.
+ */
+function ${mymodule}_node_type($op, $info) {
+${cursor}  switch ($op) {
+    case 'delete':
+      break;
+    case 'insert':
+      break;
+    case 'update':
+      break;
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_grants_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter user access rules when trying to view, edit or delete a node.
+ *
+ * @param &$grants
+ *   The $grants array returned by hook_node_grants().
+ * @param $account
+ *   The user account requesting access to content.
+ * @param $op
+ *   The operation being performed, 'view', 'update' or 'delete'.
+ */
+function ${mymodule}_node_grants_alter(&$grants, $account, $op) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_logout" xml:space="preserve">
+        <code><![CDATA[/**
+ * The user just logged out.
+ *
+ * @param $account
+ *   The user object on which the operation was just performed.
+ */
+function ${mymodule}_user_logout($account) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_access_records_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter permissions for a node before it is written to the database.
+ *
+ * @param &$grants
+ *   The $grants array returned by hook_node_access_records().
+ * @param $node
+ *   The node for which the grants were acquired.
+ */
+function ${mymodule}_node_access_records_alter(&$grants, $node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_test_finished" xml:space="preserve">
+        <code><![CDATA[/**
+ * An individual test has finished.
+ *
+ * @param
+ *   $results The results of the test as gathered by DrupalWebTestCase.
+ */
+function ${mymodule}_test_finished($results) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_mail" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_mail().
+ *
+ * @param $key An identifier of the mail.
+ * @param $message An array to be filled in. Keys in this array include: id, to, subject, body, from, headers
+ * @param $params An arbitrary array of parameters set by the caller to drupal_mail.
+ */
+function ${mymodule}_mail($key, &$message, $params) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * Display a node.
+ *
+ * @param $node
+ *   The node to be displayed, as returned by node_load().
+ * @param $view_mode
+ *   View mode, e.g. 'full', 'teaser', ...
+ * @return
+ *   $node. The passed $node parameter should be modified as necessary and
+ *   returned so it can be properly presented. Nodes are prepared for display
+ *   by assembling a structured array, formatted as in the Form API, in
+ *   $node->content. As with Form API arrays, the #weight property can be
+ *   used to control the relative positions of added elements. After this
+ *   hook is invoked, node_view() calls field_attach_view() to add field
+ *   views to $node->content, and then invokes hook_node_view() and
+ *   hook_node_view_alter(), so if you want to affect the final
+ *   view of the node, you might consider implementing one of these hooks
+ *   instead.
+ */
+function ${mymodule}_view($node, $view_mode) {
+  $node->content['${myfield}'] = array(
+    '#markup' => theme('${mymodule_myfield}', $node->${myfield}),
+    '#weight' => 1,
+  );
+
+  return $node;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="menu_item" xml:space="preserve">
+        <code><![CDATA[$items['${menu_item_location}'] = array(
+  'title' => '${menu_item_title}',
+  'description' => '${menu_item_description}',
+  'page callback' => '${menu_item_callback}',
+  'page arguments' => array('${menu_item_arguments}'),
+  'access arguments' => array('${menu_item_access}'),
+  'type' => ${menu_item_type},
+);]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Respond to creation of a new node.
+ *
+ * @param $node
+ *   The node that is being created.
+ */
+function ${mymodule}_insert($node) {
+  db_insert('${mytable}')
+    ->fields(array(
+      'nid' => $node->nid,
+      '${extra}' => $node->${extra},
+    ))
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_help" xml:space="preserve">
+        <code><![CDATA[/**
+ * Provide online user help.
+ *
+ * @param $path
+ *   The router menu path, as defined in hook_menu(), for the help that is
+ *   being requested; e.g., 'admin/people' or 'user/register'.  If the router
+ *   path includes a wildcard, then this will appear in $path as %, even if it
+ *   is a named %autoloader wildcard in the hook_menu() implementation; for
+ *   example, node pages would have $path equal to 'node/%' or 'node/%/view'.
+ *   To provide a help page for a whole module with a listing on admin/help,
+ *   your hook implementation should match a path with a special descriptor
+ *   after a "#" sign:
+ *     'admin/help#modulename'
+ *       The main module help text, displayed on the admin/help/modulename
+ *       page and linked to from the admin/help page.
+ * @param $arg
+ *   An array that corresponds to the return value of the arg() function, for
+ *   modules that want to provide help that is specific to certain values
+ *   of wildcards in $path. For example, you could provide help for the path
+ *   'user/1' by looking for the path 'user/%' and $arg[1] == '1'. This given
+ *   array should always be used rather than directly invoking arg(), because
+ *   your hook implementation may be called for other purposes besides building
+ *   the current page's help. Note that depending on which module is invoking
+ *   hook_help, $arg may contain only empty strings. Regardless, $arg[0] to
+ *   $arg[11] will always be set.
+ * @return
+ *   A localized string containing the help text.
+ */
+function ${mymodule}_help($path, $arg) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being viewed. This hook can be used to add additional data to the comment before theming.
+ *
+ * @param $comment
+ *   Passes in the comment the action is being performed on.
+ * @param $view_mode
+ *   View mode, e.g. 'full', 'teaser'...
+ * @param $langcode
+ *   The language code used for rendering.
+ *
+ * @see hook_entity_view()
+ */
+function ${mymodule}_comment_view($comment, $view_mode, $langcode) {
+  $comment->${myvar} = ${cursor};
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_field_settings_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Add settings to a field settings form.
+ *
+ * @param $field
+ *   The field structure being configured.
+ * @param $instance
+ *   The instance structure being configured.
+ * @param $has_data
+ *   TRUE if the field already has data, FALSE if not.
+ *
+ * @return
+ *   The form definition for the field settings.
+ */
+function ${mymodule}_field_settings_form($field, $instance, $has_data) {
+  $form = array();
+  $settings = $field['settings'];${cursor}
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_validate" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform node validation before a node is created or updated.
+ *
+ * @param $node
+ *   The node being validated.
+ * @param $form
+ *   The form being used to edit the node.
+ * @param $form_state
+ *   The form state array.
+ */
+function ${mymodule}_node_validate($node, $form, &$form_state) {
+  if (${condition}) {
+    form_set_error('${field}', t('${message}'));
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_exit" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_exit().
+ */
+function ${mymodule}_exit() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_role_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Inform other modules that a user role has been updated.
+ *
+ * @param $role
+ *   A user role object.
+ */
+function ${mymodule}_user_role_update($role) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_view_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform alterations to the content of a block.
+ *
+ * @param $data
+ *   An array of data, as returned from the hook_block_view() implementation of
+ *   the module that defined the block:
+ *   - subject: The default localized title of the block.
+ *   - content: Either a string or a renderable array representing the content
+ *     of the block. You should check that the content is an array before trying
+ *     to modify parts of the renderable structure.
+ * @param $block
+ *   The block object, as loaded from the database, having the main properties:
+ *   - module: The name of the module that defined the block.
+ *   - delta: The unique identifier for the block within that module, as defined
+ *     in hook_block_info().
+ */
+function ${mymodule}_block_view_alter(&$data, $block) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_search_result" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node being displayed as a search result.
+ *
+ * @param $node
+ *   The node being displayed in a search result.
+ *
+ * @return
+ *   Extra information to be displayed with search result.
+ */
+function ${mymodule}_node_search_result($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_aggregator_parse_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implement this hook to expose the title and a short description of your
+ * parser.
+ *
+ * @return
+ *   An associative array defining a title and a description string.
+ */
+function ${mymodule}_aggregator_parse_info() {
+  return array(
+    'title' => t('${title}'),
+    'description' => t('${description}'),
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_save" xml:space="preserve">
+        <code><![CDATA[/**
+ * Save the configuration options from hook_block_configure().
+ *
+ * @param $delta
+ *   Which block is being configured. This is a unique identifier for the block
+ *   within the module, defined in hook_block_info().
+ * @param $edit
+ *   The submitted form data from the configuration form.
+ */
+function ${mymodule}_block_save($delta = '', $edit = array()) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_configure" xml:space="preserve">
+        <code><![CDATA[/**
+ * Define a configuration form for a block.
+ *
+ * @param $delta
+ *   Which block is being configured. This is a unique identifier for the block
+ *   within the module, defined in hook_block_info().
+ *
+ * @return
+ *   A configuration form, if one is needed for your block beyond the standard
+ *   elements that the block module provides (block title, visibility, etc.).
+ */
+function ${mymodule}_block_configure($delta = '') {
+  $form = array();${cursor}
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_file_download_access" xml:space="preserve">
+        <code><![CDATA[/**
+ * Control download access to files.
+ *
+ * @param $field
+ *   The field to which the file belongs.
+ * @param $entity_type
+ *   The type of $entity; for example, 'node' or 'user'.
+ * @param $entity
+ *   The $entity to which $file is referenced.
+ *
+ * @return
+ *   TRUE is access should be allowed by this entity or FALSE if denied. Note
+ *   that denial may be overridden by another entity controller, making this
+ *   grant permissive rather than restrictive.
+ */
+function ${mymodule}_file_download_access($field, $entity_type, $entity) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * A user account was updated.
+ *
+ * @param $edit
+ *   The array of form values submitted by the user.
+ * @param $account
+ *   The user object on which the operation is performed.
+ * @param $category
+ *   The active category of user information being edited.
+ */
+function ${mymodule}_user_update(&$edit, $account, $category) {
+  db_insert('${mytable}')
+    ->fields(array(
+      'uid' => $account->uid,
+      'changed' => time(),
+    ))
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_node_prepare" xml:space="preserve">
+        <code><![CDATA[/**
+ * Act on a node object about to be shown on the add/edit form.
+ *
+ * @param $node
+ *   The node that is about to be shown on the add/edit form.
+ */
+function ${mymodule}_node_prepare($node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_format_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform actions when a new text format has been created.
+ *
+ * @param $format
+ *   The format object of the format being updated.
+ */
+function ${mymodule}_filter_format_insert($format) {
+  ${mymodule}_cache_rebuild();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_contextual_links_view_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter a contextual links element before it is rendered.
+ *
+ * @param $element
+ *   A renderable array representing the contextual links.
+ * @param $items
+ *   An associative array containing the original contextual link items, as
+ *   generated by menu_contextual_links(), which were used to build
+ *   $element['#links'].
+ */
+function ${mymodule}_contextual_links_view_alter(&$element, $items) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_hook_info" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_hook_info().
+ */
+function ${mymodule}_hook_info() {
+  return array(
+    '${cursor}' => array(
+    )
+  );
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update_projects_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update_projects_alter().
+ *
+ * @param $projects Reference to an array of the projects installed on the system.
+ */
+function ${mymodule}_update_projects_alter(&$projects) {
+  $projects['${cursor}'];
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_path_insert" xml:space="preserve">
+        <code><![CDATA[/**
+ * Allow modules to respond to a path being inserted.
+ *
+ * @param $path
+ *   An associative array containing the following keys:
+ *   - source: The internal system path.
+ *   - alias: The URL alias.
+ *   - pid: Unique path alias identifier.
+ *   - language: The language of the alias.
+ */
+function ${mymodule}_path_insert($path) {
+  db_insert('${mytable}')
+    ->fields(array(
+      'alias' => $path['alias'],
+      'pid' => $path['pid'],
+    ))
+    ->execute();
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="if" contexts="php-code" uuid="org.netbeans.modules.php.editor.codetemplate.if" xml:space="preserve">
+        <code><![CDATA[print '<pre>'; print_r(${VARIABLE variableFromPreviousAssignment default="$variable"}); print '</pre>';]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="eiu" xml:space="preserve">
+        <code><![CDATA[eiu_features]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_menu_update" xml:space="preserve">
+        <code><![CDATA[/**
+ * Informs modules that a custom menu was updated.
+ *
+ * @param $menu
+ *   An array representing a custom menu:
+ *   - menu_name: The unique name of the custom menu.
+ *   - title: The human readable menu title.
+ *   - description: The custom menu description.
+ *   - old_name: The current 'menu_name'. Note that internal menu names cannot
+ *     be changed after initial creation.
+ */
+function ${mymodule}_menu_update($menu) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_requirements" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_requirements().
+ *
+ * @param $phase The phase in which hook_requirements is run: install or runtime.
+ */
+function ${mymodule}_requirements($phase) {
+  $requirements = array();
+  
+  $requirements['${name}'] = array(
+    'title' =>  t('${title}'),
+    'value' => t('${value}'),
+    'severity' => REQUIREMENT_OK,
+  );
+  
+  $requirements['name'] = array(
+    'title' =>  t('title'),
+    'value' => t('value'),
+    'severity' => REQUIREMENT_ERROR,
+  );
+  
+  $requirements['name'] = array(
+    'title' =>  t('title'),
+    'value' => t('value'),
+    'severity' => REQUIREMENT_INFO,
+  );
+  
+  $requirements['name'] = array(
+    'title' =>  t('title'),
+    'value' => t('value'),
+    'severity' => REQUIREMENT_WARNING,
+  );
+  
+  return $requirements;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_block_view" xml:space="preserve">
+        <code><![CDATA[/**
+ * Return a rendered or renderable view of a block.
+ *
+ * @param $delta
+ *   Which block to render. This is a unique identifier for the block
+ *   within the module, defined in hook_block_info().
+ *
+ * @return
+ *   An array containing the following elements:
+ *   - subject: The default localized title of the block. If the block does not
+ *     have a default title, this should be set to NULL.
+ *   - content: The content of the block's body. This may be a renderable array
+ *     (preferable) or a string containing rendered HTML content.
+ */
+function ${mymodule}_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case '${delta}':
+      $block['subject'] = t('${subject}');
+      $block['content'] = ${cursor};
+      break;
+  }
+  
+  return $block;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_field_widget_settings_form" xml:space="preserve">
+        <code><![CDATA[/**
+ * Add settings to a widget settings form.
+ *
+ * @param $field
+ *   The field structure being configured.
+ * @param $instance
+ *   The instance structure being configured.
+ *
+ * @return
+ *   The form definition for the widget settings.
+ */
+function ${mymodule}_field_widget_settings_form($field, $instance) {
+  $form = array();
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];${cursor}
+  return $form;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_validate" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_validate().
+ *
+ * Validate ${module_node} node type.
+ *
+ * @param $node Node to be validated.
+ * @param &$form The node edit form array.
+ */
+function ${module_node}_validate($node, &$form) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_update_N" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_update_N().
+ */
+function ${mymodule}_update_${update_number}(&$sandbox = NULL) {
+  $ret = array();
+  ${cursor}
+  return $ret;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_link_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_link_alter().
+ */
+function ${mymodule}_link_alter(&$links, $node) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_block" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_block().
+ *
+ * @param $op What kind of information to retrieve about the block. Possible values: list, configure, save, view.
+ * @param $delta Which block to return.
+ * @param $edit Data from a configuration form, if submitted.
+ */
+function ${mymodule}_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks = array();
+      
+      $blocks['${delta}'] = array(
+        'info' => t('${info}'),
+      );
+
+      return $blocks;
+      break;
+      
+    case 'view':
+      $blocks = array();
+      
+      switch ($delta) {
+        case '${delta}':
+          $block['subject'] = t('${subject}');
+          break;
+      }
+      
+      $block['content'] = ${mymodule}_block_content($delta);
+      
+      return $block;
+      break;
+  }
+}
+
+/**
+ * Generate block contents.
+ * 
+ * @param $delta The block id.
+ * @return The generated block content.
+ */
+function ${mymodule}_block_content($delta) {
+  switch ($delta) {
+    case '${delta}':
+      return;
+      break;
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_search_preprocess" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_searcd6_preprocess().
+ *
+ * @param $text The text to split. This is a single piece of plain-text that was extracted from between two HTML tags.
+ * @return The text after processing.
+ */
+function ${mymodule}_search_preprocess($text) {
+  ${cursor}
+  return $text;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_test_group_started" xml:space="preserve">
+        <code><![CDATA[/**
+ * A test group has started.
+ *
+ * This hook is called just once at the beginning of a test group.
+ */
+function ${mymodule}_test_group_started() {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_file_download_access_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Alter the access rules applied to a file download.
+ *
+ * @param &$grants
+ *   An array of grants gathered by hook_file_download_access(). The array is
+ *   keyed by the module that defines the entity type's access control; the
+ *   values are Boolean grant responses for each module.
+ * @param $field
+ *   The field to which the file belongs.
+ * @param $entity_type
+ *   The type of $entity; for example, 'node' or 'user'.
+ * @param $entity
+ *   The $entity to which $file is referenced.
+ *
+ * @return
+ *   An array of grants, keyed by module name, each with a Boolean grant value.
+ *   Return an empty array to assert FALSE. You may choose to return your own
+ *   module's value in addition to other grants or to overwrite the values set by
+ *   other modules.
+ */
+function ${mymodule}_file_download_access_alter(&$grants, $field, $entity_type, $entity) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_uninstall" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_uninstall().
+ */
+function ${mymodule}_uninstall() {
+  drupal_uninstall_schema('${mymodule}');${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d6_filter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Implementation of hook_filter().
+ */
+function ${mymodule}_filter($op, $delta = 0, $format = -1, $text = '', $cache_id = 0) {
+  switch ($op) {
+    case 'list':
+      return array(${cursor});
+
+    case 'description':
+      return t('');
+
+    case 'prepare':
+      return $text;
+
+    case "process":
+      return $text;
+
+    default:
+      return $text;
+  }
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_user_login" xml:space="preserve">
+        <code><![CDATA[/**
+ * The user just logged in.
+ *
+ * @param $edit
+ *   The array of form values submitted by the user.
+ * @param $account
+ *   The user object on which the operation was just performed.
+ */
+function ${mymodule}_user_login(&$edit, $account) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_FILTER_prepare" xml:space="preserve">
+        <code><![CDATA[/**
+ * Prepare callback for hook_filter_info().
+ *
+ * @param $text
+ *   The text string to be filtered.
+ * @param $filter
+ *   The filter object containing settings for the given format.
+ * @param $format
+ *   The text format object assigned to the text to be filtered.
+ * @param $langcode
+ *   The language code of the text to be filtered.
+ * @param $cache
+ *   A Boolean indicating whether the filtered text is going to be cached in
+ *   {cache_filter}.
+ * @param $cache_id
+ *   The ID of the filtered text in {cache_filter}, if $cache is TRUE.
+ *
+ * @return
+ *   The prepared, escaped text.
+ */
+function ${mymodule}_filter_FILTER_prepare($text, $filter, $format, $langcode, $cache, $cache_id) {
+  ${cursor}
+  return $text;
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="annf" xml:space="preserve">
+        <code><![CDATA[/**
+ * @file ${file} - ${date}
+ *
+ * ${cursor}
+ * 
+ *
+ * @author Kálmán Hosszu - kalman.hosszu@factory.co.hu - Factory Creative Studio
+ */
+ 
+/* ====================== */
+/* ==== DRUPAL HOOKS ==== */
+/* ====================== */
+
+
+/* ====================== */
+/* == MODULE FUNCTIONS == */
+/* ====================== */]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_filter_info_alter" xml:space="preserve">
+        <code><![CDATA[/**
+ * Perform alterations on filter definitions.
+ *
+ * @param $info
+ *   Array of information on filters exposed by hook_filter_info()
+ *   implementations.
+ */
+function ${mymodule}_filter_info_alter(&$info) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="d7_comment_delete" xml:space="preserve">
+        <code><![CDATA[/**
+ * The comment is being deleted by the moderator.
+ *
+ * @param $comment
+ *   Passes in the comment the action is being performed on.
+ * @return
+ *   Nothing.
+ */
+function ${mymodule}_comment_delete($comment) {
+  ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="cln" remove="true"/>
+    <codetemplate abbreviation="pr" remove="true"/>
+</codetemplates>
